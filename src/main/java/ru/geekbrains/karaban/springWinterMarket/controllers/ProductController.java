@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.karaban.springWinterMarket.dtos.ProductDto;
 import ru.geekbrains.karaban.springWinterMarket.entities.Product;
 import ru.geekbrains.karaban.springWinterMarket.exceptions.AppError;
 import ru.geekbrains.karaban.springWinterMarket.exceptions.ResourceNotFoundException;
@@ -19,12 +20,12 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> findAllProducts(){
+    public List<ProductDto> findAllProducts(){
         return productService.findAllProducts();
     }
 
     @GetMapping("/{id}")
-    public Product findProductById(@PathVariable Long id) {
+    public ProductDto findProductById(@PathVariable Long id) {
         return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));
     }
 

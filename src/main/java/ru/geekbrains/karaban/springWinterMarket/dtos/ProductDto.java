@@ -1,5 +1,6 @@
 package ru.geekbrains.karaban.springWinterMarket.dtos;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,19 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+public class ProductDto {
 
-
-    private Long productId;
-
+    private Long id;
     private String title;
-
-    private int quantity;
-
-    private int priceUnit;
-
-    private int priceTotal;
-
-    private int itemId;
-
+    private int price;
 }

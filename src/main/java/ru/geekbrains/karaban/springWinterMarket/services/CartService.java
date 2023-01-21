@@ -2,8 +2,7 @@ package ru.geekbrains.karaban.springWinterMarket.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.karaban.springWinterMarket.dtos.Cart;
-import ru.geekbrains.karaban.springWinterMarket.dtos.ProductDto;
+import ru.geekbrains.karaban.springWinterMarket.model.Cart;
 import ru.geekbrains.karaban.springWinterMarket.entities.Product;
 import ru.geekbrains.karaban.springWinterMarket.exceptions.ResourceNotFoundException;
 
@@ -33,8 +32,8 @@ public class CartService {
         tempCart.delete(id);
     }
 
-    public void deleteAllProducts() {
-        tempCart.deleteAll();
+    public void clear() {
+        tempCart.clear();
     }
 
     public void deleteItem(Long itemId) {

@@ -23,14 +23,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     }
 
-    $scope.deleteAllProducts = function () {
+    $scope.clearCart = function () {
         $http.delete('http://localhost:8180/winter/api/v1/cart').then(function (response) {
             $scope.loadCart();
         });
     }
 
     $scope.deleteItem = function (itemId) {
-        $http.get('http://localhost:8180/winter/api/v1/cart/items/' + itemId).then(function (response) {
+        $http.delete('http://localhost:8180/winter/api/v1/cart/items/' + itemId).then(function (response) {
             $scope.loadCart();
         });
     }

@@ -45,7 +45,7 @@
             <td>Количество</td>
             <td>Цена</td>
             <td>
-                <button type="button" class="btn btn-link" ng-click="deleteAllProducts()">Очистить корзину</button>
+                <button type="button" class="btn btn-link" ng-click="clearCart()">Очистить корзину</button>
             </td>
         </tr>
         <tbody>
@@ -58,7 +58,7 @@
             </td>
             <td>{{item.priceUnit + ' x ' + item.quantity + ' = ' + item.priceTotal}}</td>
             <td>
-                <button type="button" class="btn btn-link" ng-click="deleteItem(item.itemId)">Удалить товар</button>
+                <button type="button" class="btn btn-link" ng-click="deleteItem(item.productId)">Удалить товар</button>
             </td>
         </tr>
         <tr>

@@ -1,4 +1,4 @@
-package ru.geekbrains.karaban.springWinterMarket.dtos;
+package ru.geekbrains.karaban.springWinterMarket.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +20,10 @@ public class CartItem {
 
     private int priceTotal;
 
-    private int itemId;
+
+    public void resetQuantity(int delta) {
+        quantity += delta;
+        priceTotal = priceUnit * quantity;
+    }
 
 }

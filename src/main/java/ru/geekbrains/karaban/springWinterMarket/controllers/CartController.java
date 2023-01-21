@@ -2,7 +2,7 @@ package ru.geekbrains.karaban.springWinterMarket.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.karaban.springWinterMarket.dtos.Cart;
+import ru.geekbrains.karaban.springWinterMarket.model.Cart;
 import ru.geekbrains.karaban.springWinterMarket.services.CartService;
 
 @RestController
@@ -28,11 +28,11 @@ public class CartController {
     }
 
     @DeleteMapping
-    public void deleteAllProducts() {
-        cartService.deleteAllProducts();
+    public void clearCart() {
+        cartService.clear();
     }
 
-    @GetMapping("/items/{itemId}")
+    @DeleteMapping("/items/{itemId}")
     public void deleteItem(@PathVariable Long itemId) {
         cartService.deleteItem(itemId);
     }

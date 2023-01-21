@@ -1,4 +1,4 @@
-package ru.geekbrains.karaban.springWinterMarket.dtos;
+package ru.geekbrains.karaban.springWinterMarket.model;
 
 import lombok.Data;
 import ru.geekbrains.karaban.springWinterMarket.entities.Product;
@@ -25,11 +25,10 @@ public class Cart {
         items.stream().filter(cartItem -> cartItem.getProductId().equals(product.getId()))
                 .findFirst()
                 .ifPresentOrElse(cartItem -> {
-                    cartItem.setQuantity(cartItem.getQuantity() + 1);
-                    cartItem.setPriceTotal(cartItem.getPriceUnit() * cartItem.getQuantity());
+                    cartItem.resetQuantity(1);
                 }, () -> {
                     items.add(new CartItem(product.getId(),
-                            product.getTitle(), 1, product.getPrice(), product.getPrice(), items.size()));
+                            product.getTitle(), 1, product.getPrice(), product.getPrice()));
                 });
 
         recalculate();
@@ -38,21 +37,24 @@ public class Cart {
     public void delete(Long id) {
         items.stream().filter(cartItem -> cartItem.getProductId().equals(id))
                 .findFirst().ifPresent(cartItem -> {
-                    cartItem.setQuantity(cartItem.getQuantity() - 1);
-                    cartItem.setPriceTotal(cartItem.getPriceUnit() * cartItem.getQuantity());
+                    if(cartItem.getQuantity() == 1){
+                        deleteItem(id);
+                    } else {
+                        cartItem.resetQuantity(-1);
+                        recalculate();
+                    }
                 });
-        recalculate();
     }
 
-    public void deleteAll() {
-        items = new ArrayList<>();
+    public void clear() {
+        items.clear();
         recalculate();
     }
 
     public void deleteItem(Long itemId) {
-        int id = Math.toIntExact(itemId);
-        items.remove(id);
-        recalculate();
+        if (items.removeIf(item -> item.getProductId().equals(itemId))) {
+            recalculate();
+        }
     }
 
     private void recalculate() {

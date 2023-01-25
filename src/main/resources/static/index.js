@@ -53,8 +53,18 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.winterMarketUser.token;
     }
-    
 
+    $scope.placedOrder = function (){
+        $http.post('http://localhost:8180/winter/api/v1/orders').then(function (response) {
+            $scope.clearCart();
+        });
+    }
+
+    $scope.getOrders = function (){
+        $http.get('http://localhost:8180/winter/api/v1/orders').then(function (response) {
+            alert(response.data.id);
+        });
+    }
 
     $scope.loadProducts = function () {
         $http.get('http://localhost:8180/winter/api/v1/products').then(function (response) {
@@ -92,6 +102,8 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $scope.loadCart();
         });
     }
+
+
 
     $scope.loadProducts();
     $scope.loadCart();

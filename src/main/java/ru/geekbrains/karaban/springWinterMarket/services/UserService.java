@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geekbrains.karaban.springWinterMarket.entities.Role;
 import ru.geekbrains.karaban.springWinterMarket.entities.User;
+import ru.geekbrains.karaban.springWinterMarket.exceptions.ResourceNotFoundException;
 import ru.geekbrains.karaban.springWinterMarket.repositories.UserRepository;
 
 import java.util.Collection;
@@ -22,14 +23,13 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> findByUsername(String username) {return userRepository.findByUsername(username);
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username).get();
+        User user = findByUsername(username).orElseThrow(()-> new ResourceNotFoundException("Пользователь с именем " + username + " не найден."));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 

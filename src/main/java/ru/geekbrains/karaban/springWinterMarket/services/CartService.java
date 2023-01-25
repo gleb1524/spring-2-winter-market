@@ -15,6 +15,7 @@ public class CartService {
 
     private  Cart tempCart;
     private final ProductService productService;
+
     public Cart getCurrentCart(){
         return tempCart;
     }
@@ -25,7 +26,7 @@ public class CartService {
     }
 
     public void addProduct(Long id) {
-         tempCart.addProduct(findProductById(id));
+        tempCart.addProduct(findProductById(id));
     }
 
     public void deleteProduct(Long id){

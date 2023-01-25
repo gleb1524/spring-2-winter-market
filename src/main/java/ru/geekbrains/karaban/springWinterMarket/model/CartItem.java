@@ -16,14 +16,14 @@ public class CartItem {
 
     private int quantity;
 
-    private int priceUnit;
+    private int pricePerProduct;
 
-    private int priceTotal;
+    private int price;
 
 
     public void resetQuantity(int delta) {
         quantity += delta;
-        priceTotal = priceUnit * quantity;
+        price = pricePerProduct * quantity;
     }
 
 }

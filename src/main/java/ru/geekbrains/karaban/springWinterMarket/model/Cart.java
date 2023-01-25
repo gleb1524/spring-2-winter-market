@@ -60,7 +60,7 @@ public class Cart {
     private void recalculate() {
         totalCoast = 0;
         for (CartItem item : items) {
-            totalCoast += item.getPriceTotal();
+            totalCoast += item.getPrice();
         }
     }
 }

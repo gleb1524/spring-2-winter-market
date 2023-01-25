@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Winter market</a>
                 </li>
+                <li class="nav-item" ng-show="isUserLoggedIn()" style="...">
+                    <button class="btn btn-secondary btn-sm" ng-click="getOrders()">Заказы</button>
+                </li>
 
 
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
@@ -79,6 +82,9 @@
             <td>
                 <button type="button" class="btn btn-link" ng-click="clearCart()">Очистить корзину</button>
             </td>
+            <td>
+                <button type="button" class="btn btn-link" ng-click="placedOrder()">Оформить заказ</button>
+            </td>
         </tr>
         <tbody>
         <tr ng-repeat="item in cart.items">
@@ -88,7 +94,7 @@
                 {{item.quantity}}
                 <button type="button" class="btn btn-success" ng-click="putProductInCart(item.productId)">+</button>
             </td>
-            <td>{{item.priceUnit + ' x ' + item.quantity + ' = ' + item.priceTotal}}</td>
+            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
             <td>
                 <button type="button" class="btn btn-link" ng-click="deleteItem(item.productId)">Удалить товар</button>
             </td>

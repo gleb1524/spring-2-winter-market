@@ -30,4 +30,7 @@ public class ProductService {
                 .map(product -> new ProductDto(product.getId(),product.getTitle(), product.getPrice()));
     }
 
+    public Product findProductById(Long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
 }

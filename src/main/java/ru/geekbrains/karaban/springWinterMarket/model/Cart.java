@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class Cart {
     private List<CartItem> items;
-    private int totalCoast;
+    private int totalPrice;
 
     public Cart() {
         this.items = new ArrayList<>();
@@ -58,9 +58,9 @@ public class Cart {
     }
 
     private void recalculate() {
-        totalCoast = 0;
+        totalPrice = 0;
         for (CartItem item : items) {
-            totalCoast += item.getPrice();
+            totalPrice += item.getPrice();
         }
     }
 }

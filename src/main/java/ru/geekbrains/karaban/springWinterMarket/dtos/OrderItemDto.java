@@ -27,12 +27,12 @@ public class OrderItemDto {
 
     private int price;
 
-    public OrderItemDto(OrderItem orderItem) {
-        this.id = orderItem.getId();
-        this.productId = orderItem.getProduct().getId();
-        this.orderId = orderItem.getOrder().getId();
-        this.quantity = orderItem.getQuantity();
-        this.pricePerProduct = orderItem.getPricePerProduct();
-        this.price = orderItem.getPrice();
-    }
+//    public OrderItemDto(OrderItem orderItem) {
+//        this.id = orderItem.getId();
+//        this.productId = orderItem.getProduct().getId();
+//        this.orderId = orderItem.getOrder().getId();
+//        this.quantity = orderItem.getQuantity();
+//        this.pricePerProduct = orderItem.getPricePerProduct();
+//        this.price = orderItem.getPrice();
+//    }
 }

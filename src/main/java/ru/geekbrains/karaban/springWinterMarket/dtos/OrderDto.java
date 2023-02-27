@@ -22,13 +22,13 @@ public class OrderDto {
 
     private String phone;
 
-    public OrderDto(Order order) {
-        this.id = order.getId();
-        this.orderItemDtos = order.getOrderItems().stream()
-                .map(OrderItemDto::new)
-                .collect(Collectors.toList());
-        this.totalPrice = order.getTotalPrice();
-        this.address = order.getAddress();
-        this.phone = order.getPhone();
-    }
+//    public OrderDto(Order order) {
+//        this.id = order.getId();
+//        this.orderItemDtos = order.getOrderItems().stream()
+//                .map(OrderItemDto::new)
+//                .collect(Collectors.toList());
+//        this.totalPrice = order.getTotalPrice();
+//        this.address = order.getAddress();
+//        this.phone = order.getPhone();
+//    }
 }

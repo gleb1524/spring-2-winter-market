@@ -3,6 +3,7 @@ package ru.geekbrains.karaban.springWinterMarket.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.karaban.springWinterMarket.converter.UserConverter;
 import ru.geekbrains.karaban.springWinterMarket.dtos.OrderDto;
 import ru.geekbrains.karaban.springWinterMarket.dtos.UserDto;
 import ru.geekbrains.karaban.springWinterMarket.entities.Order;
@@ -20,26 +21,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final UserService userService;
     private final OrderService orderService;
+    private final UserConverter userConverter;
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(Principal principal) {
-        UserDto userDto = principalToUserMapper(principal);
+        UserDto userDto = userConverter.principalToUser(principal);
         orderService.createOrder(userDto);
     }
 
     @GetMapping
     public List<OrderDto> findOrders(Principal principal) {
-        UserDto userDto = principalToUserMapper(principal);
+        UserDto userDto = userConverter.principalToUser(principal);
         return orderService.findOrdersByUserId(userDto.getId());
     }
 
-    private UserDto principalToUserMapper(Principal principal) {
-        return new UserDto(userService.findByUsername(principal.getName())
-                .orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден")));
 
-    }
 }

@@ -3,11 +3,12 @@ package ru.geekbrains.karaban.springWinterMarket.services;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.geekbrains.karaban.springWinterMarket.converter.OrderConverter;
 import ru.geekbrains.karaban.springWinterMarket.dtos.OrderDto;
 import ru.geekbrains.karaban.springWinterMarket.dtos.UserDto;
 import ru.geekbrains.karaban.springWinterMarket.entities.Order;
 import ru.geekbrains.karaban.springWinterMarket.exceptions.ResourceNotFoundException;
-import ru.geekbrains.karaban.springWinterMarket.model.CartItem;
 import ru.geekbrains.karaban.springWinterMarket.repositories.OrderRepository;
 
 
@@ -23,26 +24,23 @@ public class OrderService {
     private final CartService cartService;
     private final OrderItemService orderItemService;
     private final UserService userService;
+    private final OrderConverter orderConverter;
 
-
+    @Transactional
     public void createOrder(UserDto userDto) {
         Order order = new Order();
+        order.setTotalPrice(cartService.getCurrentCart().getTotalPrice());
         order.setUser(userService
                 .findByUsername(userDto.getUsername())
                 .orElseThrow(()-> new ResourceNotFoundException("Невозможно добавить заказ. Пользователь не найден.")));
-        order.setTotalPrice(cartService.getCurrentCart().getItems()
-                .stream()
-                .map(CartItem::getPrice)
-                .reduce(Integer::sum).orElseThrow());
         orderRepository.save(order);
         orderItemService.creatOrderItem(order);
-
     }
 
     public List<OrderDto> findOrdersByUserId(Long id) {
         return orderRepository.findOrderByUserId(id).orElseThrow(()->new ResourceNotFoundException("Заказы пользователя с айди: " + "не найдены"))
                 .stream()
-                .map(OrderDto::new)
+                .map(orderConverter::entityToDto)
                 .collect(Collectors.toList());
     }
 
